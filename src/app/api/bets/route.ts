@@ -34,6 +34,13 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  if (process.env.BETTING_ENABLED === 'false') {
+    return NextResponse.json(
+      { error: 'Betting is currently disabled' },
+      { status: 403 }
+    )
+  }
+
   const body = await request.json()
   const { user_id, match_id, bet_type } = body
 

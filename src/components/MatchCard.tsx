@@ -42,9 +42,10 @@ interface PitchData {
 
 interface Props {
   match: Match
+  bettingEnabled?: boolean
 }
 
-export default function MatchCard({ match }: Props) {
+export default function MatchCard({ match, bettingEnabled = true }: Props) {
   const { user } = useUser()
   const [selectedBet, setSelectedBet] = useState<string | null>(null)
   const [betPl, setBetPl] = useState<number | null>(null)
@@ -136,7 +137,7 @@ export default function MatchCard({ match }: Props) {
         match={match}
         selected={selectedBet}
         onSelect={handleBet}
-        disabled={settled || noUser || saving}
+        disabled={settled || noUser || saving || !bettingEnabled}
       />
 
       {settled && betPl !== null && (
@@ -147,6 +148,9 @@ export default function MatchCard({ match }: Props) {
 
       {noUser && !settled && (
         <div className="bet-result hint">Select a user above to place bets</div>
+      )}
+      {!noUser && !settled && !bettingEnabled && (
+        <div className="bet-result hint">Betting is currently closed</div>
       )}
 
       <div className="match-actions">

@@ -49,6 +49,24 @@ export async function placeBet(userId: number, matchId: number, betType: string)
   return res.json()
 }
 
+export async function fetchBettingStatus() {
+  const res = await fetch(`${BASE}/api/betting-status`)
+  if (!res.ok) throw new Error('Failed to fetch betting status')
+  return res.json()
+}
+
+export async function fetchChartData() {
+  const res = await fetch(`${BASE}/api/chart`)
+  if (!res.ok) throw new Error('Failed to fetch chart data')
+  return res.json()
+}
+
+export async function fetchAllBets() {
+  const res = await fetch(`${BASE}/api/bets`)
+  if (!res.ok) throw new Error('Failed to fetch bets')
+  return res.json()
+}
+
 export async function registerUser(username: string, displayName: string) {
   const res = await fetch(`${BASE}/api/users`, {
     method: 'POST',

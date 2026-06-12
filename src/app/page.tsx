@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import { fetchMatches, fetchUserBets } from '@/lib/api'
+import { fetchMatches, fetchUserBets, fetchBettingStatus } from '@/lib/api'
 import MatchCard from '@/components/MatchCard'
 import Pagination from '@/components/Pagination'
 import { useUser } from '@/lib/UserContext'
@@ -38,6 +38,7 @@ export default function BettingPage() {
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<FilterMode>('unbet')
+  const [bettingEnabled, setBettingEnabled] = useState(true)
   const limit = 10
 
   // Fetch all matches once (for unbet filtering)
@@ -45,6 +46,11 @@ export default function BettingPage() {
     fetchMatches(1, 100).then((res) => {
       setAllMatches(res.matches ?? [])
     })
+  }, [])
+
+  // Fetch betting toggle status
+  useEffect(() => {
+    fetchBettingStatus().then((res) => setBettingEnabled(res.enabled)).catch(() => {})
   }, [])
 
   // Determine which matches to display based on filter
@@ -114,6 +120,10 @@ export default function BettingPage() {
         </div>
       </div>
 
+      {!bettingEnabled && (
+        <div className="betting-closed-banner">Betting is currently closed</div>
+      )}
+
       {loading ? (
         <div className="loading">Loading matches...</div>
       ) : (
@@ -126,7 +136,7 @@ export default function BettingPage() {
                   : 'No matches found.'}
               </div>
             ) : (
-              matches.map((m) => <MatchCard key={m.id} match={m} />)
+              matches.map((m) => <MatchCard key={m.id} match={m} bettingEnabled={bettingEnabled} />)
             )}
           </div>
           <Pagination page={page} total={total} limit={limit} onPageChange={setPage} />
