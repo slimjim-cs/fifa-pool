@@ -12,11 +12,15 @@ interface UserRow {
 
 export default function Leaderboard() {
   const [data, setData] = useState<UserRow[]>([])
+  const [maxPossible, setMaxPossible] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchLeaderboard()
-      .then((res) => setData(res.leaderboard ?? []))
+      .then((res) => {
+        setData(res.leaderboard ?? [])
+        setMaxPossible(res.max_possible_pl ?? null)
+      })
       .finally(() => setLoading(false))
   }, [])
 
@@ -29,6 +33,14 @@ export default function Leaderboard() {
   return (
     <div className="leaderboard">
       <h2 className="section-title">Leaderboard</h2>
+
+      {maxPossible !== null && (
+        <div className="max-possible">
+          <span className="max-possible-label">Theoretical Max</span>
+          <span className="max-possible-value">+${maxPossible.toFixed(2)}</span>
+        </div>
+      )}
+
       <table className="leaderboard-table">
         <thead>
           <tr>
