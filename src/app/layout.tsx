@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import UserSwitcher from "@/components/UserSwitcher";
 import { UserProvider } from "@/lib/UserContext";
+import { StageProvider } from "@/lib/StageContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +19,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "FIFA Pool — World Cup Betting",
   description: "Private World Cup betting pool for friends",
+  manifest: "/manifest.json",
+  themeColor: "#0b1121",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "FIFA Pool",
+  },
+  viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
 };
 
 export default function RootLayout({
@@ -29,11 +38,13 @@ export default function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <UserProvider>
-          <Navbar />
-          <div className="top-bar">
-            <UserSwitcher />
-          </div>
-          <main className="main-content">{children}</main>
+          <StageProvider>
+            <Navbar />
+            <div className="top-bar">
+              <UserSwitcher />
+            </div>
+            <main className="main-content">{children}</main>
+          </StageProvider>
         </UserProvider>
       </body>
     </html>

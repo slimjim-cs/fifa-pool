@@ -102,6 +102,7 @@ a { color: inherit; text-decoration: none; }
   position: sticky;
   top: 0;
   z-index: 100;
+  gap: 8px;
 }
 
 .navbar-brand {
@@ -111,17 +112,44 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(135deg, var(--accent), #8b5cf6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  white-space: nowrap;
 }
 
-.navbar-links { display: flex; gap: 4px; }
+.navbar-stage-toggle {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.stage-pill {
+  padding: 4px 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.stage-pill:hover { color: var(--text); }
+.stage-pill.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.navbar-links { display: flex; gap: 2px; }
 
 .navbar-link {
-  padding: 8px 16px;
+  padding: 6px 12px;
   border-radius: 6px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   color: var(--text-muted);
   transition: all 0.15s;
+  white-space: nowrap;
 }
 .navbar-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
 .navbar-link.active { color: var(--accent); background: var(--accent-glow); }
@@ -1004,6 +1032,363 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
 }
 
+/* ── Knockout Stage ─────────────────────────────────────────── */
+.knockout-page { }
+
+.knockout-state-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 5px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1px solid rgba(59,130,246,0.3);
+}
+
+.knockout-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.knockout-tab {
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  margin-bottom: -1px;
+}
+.knockout-tab:hover { color: var(--text); }
+.knockout-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.knockout-tab-content { min-height: 300px; }
+
+/* Betting Tab */
+.knockout-betting { }
+
+.ko-balance-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08));
+  border: 1px solid rgba(59,130,246,0.25);
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+}
+.ko-balance-label {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.ko-balance-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+
+.ko-odds-table {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.ko-odds-header, .ko-odds-row {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px;
+  gap: 8px;
+  padding: 10px 16px;
+  align-items: center;
+}
+.ko-odds-header {
+  background: rgba(255,255,255,0.03);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ko-odds-row {
+  border-top: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+.ko-col-team { font-weight: 600; }
+.ko-col-odds { font-family: var(--font-mono); color: var(--text-muted); }
+
+.ko-token-input {
+  width: 80px;
+  padding: 6px 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text);
+  font-size: 0.88rem;
+  font-family: var(--font-mono);
+  text-align: center;
+}
+.ko-token-input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.ko-summary {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+}
+
+.text-positive { color: var(--green); }
+.text-negative { color: var(--red); }
+
+.ko-lock-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.ko-lock-btn:hover:not(:disabled) { opacity: 0.9; }
+.ko-lock-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ko-submitted-summary { }
+.ko-submitted-summary h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  margin-top: 16px;
+}
+
+.ko-window-closed { }
+.ko-window-closed h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  margin-top: 20px;
+}
+
+.ko-eliminated-banner {
+  padding: 10px 14px;
+  background: var(--red-bg);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--red);
+  margin-bottom: 16px;
+}
+
+.ko-eliminated-row {
+  opacity: 0.45;
+}
+
+.ko-you-badge {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+/* Dashboard Tab */
+.knockout-dashboard { }
+
+.ko-portfolio-section {
+  margin-top: 32px;
+}
+
+.ko-status-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.ko-status-badge.active {
+  background: var(--green-bg);
+  color: var(--green);
+}
+.ko-status-badge.eliminated {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+/* Audit Tab */
+.knockout-audit { }
+
+.ko-audit-filters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.ko-audit-input {
+  padding: 8px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-family: inherit;
+  min-width: 180px;
+}
+.ko-audit-input::placeholder { color: var(--text-muted); }
+.ko-audit-input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.ko-audit-count {
+  margin-left: auto;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.ko-sortable {
+  cursor: pointer;
+  user-select: none;
+}
+.ko-sortable:hover { color: var(--accent); }
+
+.ko-type-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+.ko-type-manual {
+  background: rgba(59,130,246,0.15);
+  color: #60a5fa;
+}
+.ko-type-auto {
+  background: rgba(234,179,8,0.15);
+  color: #facc15;
+  font-style: italic;
+}
+
+/* ── Knockout Admin Tab ─────────────────────────────────────── */
+.ko-admin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.ko-admin-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: all 0.12s;
+}
+.ko-admin-action-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+.ko-admin-action-btn.selected {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  box-shadow: 0 0 8px var(--accent-glow);
+}
+
+.ko-admin-action-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.ko-admin-action-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.ko-admin-panel {
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.ko-admin-round-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.ko-admin-round-input label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.ko-admin-result {
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+.ko-admin-success {
+  background: var(--green-bg);
+  border: 1px solid rgba(34,197,94,0.25);
+}
+.ko-admin-error {
+  background: var(--red-bg);
+  border: 1px solid rgba(239,68,68,0.25);
+}
+.ko-admin-result-msg {
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.ko-admin-error .ko-admin-result-msg { color: var(--red); }
+.ko-admin-success .ko-admin-result-msg { color: var(--green); }
+.ko-admin-result-details {
+  font-size: 0.76rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  max-height: 200px;
+  overflow-y: auto;
+  background: rgba(0,0,0,0.2);
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 700px) {
   .page-header { flex-direction: column; align-items: flex-start; }
@@ -1021,6 +1406,23 @@ a { color: inherit; text-decoration: none; }
   .match-actions { flex-direction: column; }
   .bench-columns { grid-template-columns: 1fr; }
   .pitch-legend { flex-wrap: wrap; }
-  .navbar { padding: 0 14px; }
-  .navbar-link { padding: 6px 10px; font-size: 0.82rem; }
+  .navbar {
+    padding: 0 10px;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 48px;
+    gap: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .navbar-brand { font-size: 1rem; }
+  .stage-pill { padding: 3px 8px; font-size: 0.68rem; }
+  .navbar-link { padding: 5px 8px; font-size: 0.76rem; }
+  .ko-odds-header, .ko-odds-row {
+    grid-template-columns: 1fr 80px 80px;
+    padding: 8px 10px;
+  }
+  .ko-token-input { width: 60px; }
+  .ko-audit-input { min-width: 120px; width: 100%; }
+  .knockout-tabs { overflow-x: auto; }
 }
