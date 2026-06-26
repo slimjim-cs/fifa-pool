@@ -1,8 +1,16 @@
 import { NextResponse } from 'next/server'
 import { getServiceClient } from '@/lib/supabase'
+import { processKnockoutCron } from '@/lib/knockout-cron'
 
 export async function GET() {
   const sb = getServiceClient()
+
+  // On-demand cron check — closes windows / snapshots odds within
+  // ~30 min of their deadline, even without a Vercel Cron invocation.
+  // Auto-start is enabled so the first user visit after 06:00 UTC on
+  // Jun 28 seeds the tournament (guards prevent redundant API calls).
+  // Cooldown prevents redundant Odds API calls on rapid refreshes.
+  await processKnockoutCron(sb, { checkCooldownMinutes: 30 })
 
   const { data: rounds } = await sb
     .from('rounds')

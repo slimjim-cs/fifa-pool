@@ -143,7 +143,7 @@ export async function POST() {
       roundsCompleted.push({
         round_id: roundId,
         name: round?.name ?? `Round #${roundId}`,
-        next_round_opened: nextRoundResult.success ?? false,
+        next_round_opened: 'success' in nextRoundResult && nextRoundResult.success === true,
       })
 
       if (phaseByRoundId.get(roundId) === 5) {

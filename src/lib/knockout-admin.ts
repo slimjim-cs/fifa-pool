@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 const ODDS_API_BASE = 'https://api.the-odds-api.com/v4'
 
@@ -9,8 +9,6 @@ const EXPECTED_GAMES: Record<string, number> = {
   'Semifinals': 2,
   'Final': 1,
 }
-
-type SupabaseClient = ReturnType<typeof createClient>
 
 /**
  * Credit tokens to all users and open the investment window for a round.

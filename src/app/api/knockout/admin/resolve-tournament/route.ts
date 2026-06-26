@@ -60,7 +60,7 @@ export async function POST() {
     const existing = userPoints.get(userId) ?? {
       display_name: (inv.users as any)?.display_name ?? `User #${userId}`,
       points: 0,
-      investments: [],
+      investments: [] as any[],
     }
     existing.points += inv.tokens_spent * Number(inv.odds_locked_in)
     existing.investments.push(inv)
